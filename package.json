@@ -1,0 +1,26 @@
+{
+  "name": "fmjsonapi",
+  "version": "0.0.1",
+  "description": "\"A RESTFul JSON Server for FileMaker 12-14. Can be used as a hapi plugin\"",
+  "main": "plugin.js",
+  "scripts": {
+    "test": "./node_modules/.bin/lab -c",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "hapi",
+    "FileMaker",
+    "JSON",
+    "REST"
+  ],
+  "author": "Todd Geist <todd@geistinteractive.com> (http://www.geisintertactive.com)",
+  "license": "MIT",
+  "dependencies": {
+    "hapi": "^11.1.2",
+    "joi": "^7.0.1"
+  },
+  "devDependencies": {
+    "code": "^2.0.1",
+    "lab": "^8.0.0"
+  }
+}
