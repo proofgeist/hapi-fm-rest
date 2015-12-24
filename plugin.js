@@ -1,4 +1,15 @@
+'use script'
+
+const handlers = require('./lib/handlers');
+const client = require('./lib/FMServerClient/index');
+
 module.exports.register = function (server, options, next) {
+
+    /**
+     * add the FileMaker Server Client to the request object
+     * so we can use it in the handlers
+     */
+    server.decorate('request', 'fms', client )
 
     server.route([
         {
@@ -10,7 +21,8 @@ module.exports.register = function (server, options, next) {
         },
         {
             method : 'GET',
-            path : '/{DB}/{layout}'
+            path : '/dbnames',
+            handler : handlers.dbnames
         }
 
 
@@ -20,6 +32,6 @@ module.exports.register = function (server, options, next) {
 };
 
 exports.register.attributes = {
-    name: 'FMSProxy',
+    name: 'fmsjsonapi',
     version: '0.0.1'
 };

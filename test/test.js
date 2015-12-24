@@ -1,4 +1,4 @@
-/*
+
 const Code = require('code');   // assertion library
 const Lab = require('lab');
 const lab = exports.lab = Lab.script();
@@ -21,13 +21,11 @@ lab.test('Test tge test', (done) => {
 
     server.inject({
         method :'get',
-        url : '/'
+        url : '/dbnames'
     }, function(response ){
-        Code.expect(response.statusCode).to.equal(200)
-        Code.expect(response.payload).to.equal("Hello, world!")
+        Code.expect(response.statusCode).to.equal(200);
+        console.log(response.payload)
         done()
     })
 
 });
-
-    */

@@ -7,7 +7,7 @@ let transformers = require('../lib/transformers');
 
 lab.experiment('DBNames', ()=>{
 
-    let result =  transformers.dbnames()
+    let result =  transformers.dbnames();
 
     lab.test('should return an object', (done) =>{
         Code.expect(result).to.be.an.object();
@@ -15,7 +15,7 @@ lab.experiment('DBNames', ()=>{
     });
 
     lab.test('with a property "-dbnames" equal to ""', (done) =>{
-        Code.expect(result['-dbnames']).to.equal('')
+        Code.expect(result.qs['-dbnames']).to.equal('')
         done();
     });
 
@@ -132,7 +132,7 @@ lab.experiment('read with rec-id', ()=>{
 
 })
 
-lab.experiment('create', ()=>{
+lab.experiment('New', ()=>{
     let requestMock = {
         params : {
             db: "Contact",
@@ -143,14 +143,14 @@ lab.experiment('create', ()=>{
             }
         }
     }
-    let result = transformers.create(requestMock);
+    let result = transformers.new(requestMock);
 
     lab.test('should return an object with an "-new" property equal to ""', (done)=>{
         Code.expect(result['-new']).to.equal("");
         done();
     });
     lab.test('should return an object with an "data.firstName" property equal to "Joe"', (done)=>{
-        Code.expect(result.data.firstName).to.equal("Joe");
+        Code.expect(result.firstName).to.equal("Joe");
         done();
     })
 });
@@ -174,7 +174,7 @@ lab.experiment('update', ()=>{
         done();
     })
     lab.test('should return an object with an "data.firstName" property equal to "Joe"', (done)=>{
-        Code.expect(result.data.firstName).to.equal("Joe");
+        Code.expect(result.firstName).to.equal("Joe");
         done();
     })
     lab.test('should return an object with an "-recid" property equal to "121212"', (done)=>{
