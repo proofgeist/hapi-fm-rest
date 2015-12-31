@@ -38,8 +38,8 @@ lab.experiment('Layoutnames', ()=>{
     });
 
     lab.test('with some defined properties', (done) =>{
-        Code.expect(result['-db']).to.equal('Contact');
-        Code.expect(result['-layoutnames']).to.equal('');
+        Code.expect(result.qs['-db']).to.equal('Contact');
+        Code.expect(result.qs['-layoutnames']).to.equal('');
         done();
     });
 
@@ -61,8 +61,8 @@ lab.experiment('scriptnames', ()=>{
     });
 
     lab.test('with some defined properties', (done) =>{
-        Code.expect(result['-db']).to.equal('Contact');
-        Code.expect(result['-scriptnames']).to.equal('');
+        Code.expect(result.qs['-db']).to.equal('Contact');
+        Code.expect(result.qs['-scriptnames']).to.equal('');
         done();
     });
 
@@ -87,7 +87,7 @@ lab.experiment('GET Layout', ()=>{
             done();
         });
         lab.test('should have a empty property,  "-find"', (done)=>{
-            Code.expect(result['-find']).to.equal('');
+            Code.expect(result.qs['-find']).to.equal('');
             done();
         });
     });
@@ -107,7 +107,7 @@ lab.experiment('GET Layout', ()=>{
             done();
         });
         lab.test('with a an empty property -findall', (done)=>{
-            Code.expect(result['-findall']).to.equal('');
+            Code.expect(result.qs['-findall']).to.equal('');
             done();
         });
 
@@ -126,7 +126,7 @@ lab.experiment('read with rec-id', ()=>{
     let result = transformers.read(requestMock);
 
     lab.test('should return an object with an "id" property equal to 23', (done)=>{
-        Code.expect(result['-recid']).to.equal("23")
+        Code.expect(result.qs['-recid']).to.equal("23")
         done();
     })
 
@@ -146,11 +146,11 @@ lab.experiment('New', ()=>{
     let result = transformers.new(requestMock);
 
     lab.test('should return an object with an "-new" property equal to ""', (done)=>{
-        Code.expect(result['-new']).to.equal("");
+        Code.expect(result.qs['-new']).to.equal("");
         done();
     });
-    lab.test('should return an object with an "data.firstName" property equal to "Joe"', (done)=>{
-        Code.expect(result.firstName).to.equal("Joe");
+    lab.test('should return an object with an "qs.firstName" property equal to "Joe"', (done)=>{
+        Code.expect(result.qs.firstName).to.equal("Joe");
         done();
     })
 });
@@ -170,15 +170,15 @@ lab.experiment('update', ()=>{
     let result = transformers.update(requestMock);
 
     lab.test('should return an object with an "-edit" property equal to ""', (done)=>{
-        Code.expect(result['-edit']).to.equal("");
+        Code.expect(result.qs['-edit']).to.equal("");
         done();
     })
-    lab.test('should return an object with an "data.firstName" property equal to "Joe"', (done)=>{
-        Code.expect(result.firstName).to.equal("Joe");
+    lab.test('should return an object with an "qs.firstName" property equal to "Joe"', (done)=>{
+        Code.expect(result.qs.firstName).to.equal("Joe");
         done();
     })
     lab.test('should return an object with an "-recid" property equal to "121212"', (done)=>{
-        Code.expect(result['-recid']).to.equal("121212");
+        Code.expect(result.qs['-recid']).to.equal("121212");
         done();
     })
 });
@@ -194,11 +194,11 @@ lab.experiment('delete', ()=>{
     let result = transformers.delete(requestMock);
 
     lab.test('should return an object with an "-delete" property equal to ""', (done)=>{
-        Code.expect(result['-delete']).to.equal("");
+        Code.expect(result.qs['-delete']).to.equal("");
         done();
     })
     lab.test('should return an object with an "-recid" property equal to "121212"', (done)=>{
-        Code.expect(result['-recid']).to.equal("121212");
+        Code.expect(result.qs['-recid']).to.equal("121212");
         done();
     })
 });

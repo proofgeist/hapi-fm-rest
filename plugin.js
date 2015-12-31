@@ -23,6 +23,21 @@ module.exports.register = function (server, options, next) {
             method : 'GET',
             path : '/dbnames',
             handler : handlers.dbnames
+        },
+        {
+            method : 'GET',
+            path : '/{db}/layoutnames',
+            handler : handlers.layoutNames
+        },
+        {
+            method : 'GET',
+            path : '/{db}/scriptnames',
+            handler : handlers.scriptNames
+        },
+        {
+            method : 'GET',
+            path : '/{db}/{layout}',
+            handler : handlers.layout
         }
 
 
