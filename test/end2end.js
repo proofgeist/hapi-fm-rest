@@ -44,7 +44,10 @@ server.connection({port : PORT });
 lab.before(function(done){
     server.register({
         register: fmsjsonapi,
-        options: {fmsAddress : FMS_SERVER_ADDRESS}
+        options: {
+            fmsAddress : FMS_SERVER_ADDRESS,
+            idField : 'id'
+        }
     },
         ()=>{
             internals.resetDB(done)

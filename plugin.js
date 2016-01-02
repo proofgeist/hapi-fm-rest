@@ -92,8 +92,9 @@ const routes = [
 ]
 
 module.exports.register = function (server, options, next) {
+    let idField = options.idField ? options.idField : 'id'
 
-    server.register(Basic, (err) => {
+        server.register(Basic, (err) => {
         server.auth.strategy('fmsSimple', 'basic', { validateFunc: validate });
 
         /*
@@ -109,6 +110,9 @@ module.exports.register = function (server, options, next) {
 
         // attach routes
         server.route(routes);
+
+        server.expose('idField', idField );
+
 
         next()
     });
