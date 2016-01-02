@@ -3,15 +3,22 @@
 const Code = require('code');   // assertion library
 const Lab = require('lab');
 const lab = exports.lab = Lab.script();
-const fmsjsonapi = require('../plugin')
+const fmsjsonapi = require('../plugin');
 
 const PORT = process.env.PORT ? process.env.PORT : 3000;
 const FMS_SERVER_ADDRESS = process.env.FMS_SERVER_ADDRESS ? process.env.FMS_SERVER_ADDRESS : 'localhost';
 
-var Hapi = require("hapi");
-var server = new Hapi.Server();
-server.connection({port : PORT });
+const Hapi = require("hapi");
+const server = new Hapi.Server();
 
+const internals = {};
+
+internals.basicAuthHeader = function (username, password) {
+    return 'Basic ' + (new Buffer(username + ':' + password, 'utf8')).toString('base64');
+};
+
+
+server.connection({port : PORT });
 lab.before(function(done){
     server.register({
         register: fmsjsonapi,
@@ -37,7 +44,10 @@ const commonTests = (request)=>{
 lab.experiment('GET /dbnames',{timeout:5000}, ()=>{
     let request = {
         method :'get',
-        url : '/dbnames?-max=1'
+        url : '/dbnames?-max=1',
+        headers : {
+            authorization : internals.basicAuthHeader('admin', '')
+        }
     };
 
     commonTests(request)
@@ -47,7 +57,10 @@ lab.experiment('GET /dbnames',{timeout:5000}, ()=>{
 lab.experiment('GET /{db}/layoutnames', ()=>{
     let request = {
         method :'get',
-        url : '/ContactsTest/layoutnames'
+        url : '/ContactsTest/layoutnames',
+        headers : {
+            authorization : internals.basicAuthHeader('admin', '')
+        }
     };
 
     commonTests(request)
@@ -57,7 +70,10 @@ lab.experiment('GET /{db}/layoutnames', ()=>{
 lab.experiment('GET /{db}/scriptnames', ()=>{
     let request = {
         method :'get',
-        url : '/ContactsTest/scriptnames'
+        url : '/ContactsTest/scriptnames',
+        headers : {
+            authorization : internals.basicAuthHeader('admin', '')
+        }
     };
 
     commonTests(request)
@@ -71,6 +87,9 @@ lab.experiment('GET /{db}/{layout}',{timeout:5000}, ()=>{
     let request = {
         method :'get',
         url : '/ContactsTest/Contacts?-max=2',
+        headers : {
+            authorization : internals.basicAuthHeader('admin', '')
+        }
     };
 
     lab.test('should return status code 200 and error "0"', (done) => {

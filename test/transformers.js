@@ -5,6 +5,18 @@ const lab = exports.lab = Lab.script();
 
 let transformers = require('../lib/transformers');
 
+const internals = {}
+internals.authenticateMock = (requestMock) => {
+     requestMock.auth = {
+        credentials : {
+            username : 'admin',
+            password : ''
+        }
+    }
+
+    return requestMock
+};
+
 lab.experiment('DBNames', ()=>{
 
     let result =  transformers.dbnames();
@@ -28,9 +40,11 @@ lab.experiment('Layoutnames', ()=>{
         params : {
             db: "Contact"
         }
-    }
+    };
 
-    let result =  transformers.layoutnames(requestMock)
+    requestMock = internals.authenticateMock(requestMock);
+
+    let result =  transformers.layoutnames(requestMock);
 
     lab.test('should return an object', (done) =>{
         Code.expect(result).to.be.an.object();
@@ -51,7 +65,8 @@ lab.experiment('scriptnames', ()=>{
         params : {
             db: "Contact"
         }
-    }
+    };
+    requestMock = internals.authenticateMock(requestMock);
 
     let result =  transformers.scriptnames(requestMock)
 
@@ -79,6 +94,8 @@ lab.experiment('GET Layout', ()=>{
                 firstName : 'todd'
             }
         };
+
+        requestMock = internals.authenticateMock(requestMock);
         let result = transformers.find(requestMock)
 
 
@@ -99,6 +116,9 @@ lab.experiment('GET Layout', ()=>{
                 layout : "ContactWeb"
             }
         };
+
+        requestMock = internals.authenticateMock(requestMock);
+
         let result = transformers.find(requestMock)
 
 
@@ -122,7 +142,9 @@ lab.experiment('read with rec-id', ()=>{
             layout : "ContactWeb",
             id : "23"
         }
-    }
+    };
+    requestMock = internals.authenticateMock(requestMock);
+
     let result = transformers.read(requestMock);
 
     lab.test('should return an object with an "id" property equal to 23', (done)=>{
@@ -142,7 +164,9 @@ lab.experiment('New', ()=>{
                 lastName : "Smith"
             }
         }
-    }
+    };
+    requestMock = internals.authenticateMock(requestMock);
+
     let result = transformers.new(requestMock);
 
     lab.test('should return an object with an "-new" property equal to ""', (done)=>{
@@ -167,6 +191,9 @@ lab.experiment('update', ()=>{
             }
         }
     };
+
+    requestMock = internals.authenticateMock(requestMock);
+
     let result = transformers.patch(requestMock);
 
     lab.test('should return an object with an "-edit" property equal to ""', (done)=>{
@@ -191,6 +218,9 @@ lab.experiment('delete', ()=>{
             id : '121212',
         }
     };
+
+
+    requestMock = internals.authenticateMock(requestMock);
     let result = transformers.delete(requestMock);
 
     lab.test('should return an object with an "-delete" property equal to ""', (done)=>{
