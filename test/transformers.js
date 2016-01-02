@@ -167,7 +167,7 @@ lab.experiment('update', ()=>{
             }
         }
     };
-    let result = transformers.update(requestMock);
+    let result = transformers.patch(requestMock);
 
     lab.test('should return an object with an "-edit" property equal to ""', (done)=>{
         Code.expect(result.qs['-edit']).to.equal("");

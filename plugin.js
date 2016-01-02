@@ -9,7 +9,12 @@ module.exports.register = function (server, options, next) {
      * add the FileMaker Server Client to the request object
      * so we can use it in the handlers
      */
-    server.decorate('request', 'fms', client );
+
+    if(options.fmsAddress){
+        client.setFMServerAddress(options.fmsAddress);
+    }
+
+    server.decorate('request', 'fms', client.request );
 
 
 
@@ -55,9 +60,9 @@ module.exports.register = function (server, options, next) {
             handler : handlers.read
         },
         {
-            method : 'PUT',
+            method : ['PUT', 'PATCH'],
             path : '/{db}/{layout}/{id}',
-            handler : handlers.update
+            handler : handlers.patch
         },
         {
             method : 'DELETE',

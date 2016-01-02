@@ -5,13 +5,21 @@ const Lab = require('lab');
 const lab = exports.lab = Lab.script();
 const fmsjsonapi = require('../plugin')
 
+const PORT = process.env.PORT ? process.env.PORT : 3000;
+const FMS_SERVER_ADDRESS = process.env.FMS_SERVER_ADDRESS ? process.env.FMS_SERVER_ADDRESS : 'localhost';
 
 var Hapi = require("hapi");
 var server = new Hapi.Server();
-server.connection({port : 8080});
+server.connection({port : PORT });
 
 lab.before(function(done){
-    server.register(fmsjsonapi, done )
+    server.register({
+        register: fmsjsonapi,
+        options: {fmsAddress : FMS_SERVER_ADDRESS}
+    },
+        done
+    )
+
 });
 
 const commonTests = (request)=>{
@@ -75,8 +83,3 @@ lab.experiment('GET /{db}/{layout}',{timeout:5000}, ()=>{
     });
 
 });
-
-
-
-
-
