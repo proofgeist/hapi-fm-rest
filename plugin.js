@@ -1,16 +1,21 @@
-'use script'
+'use strict'
 
 const handlers = require('./lib/handlers');
 const client = require('./lib/FMServerClient/index');
 
 module.exports.register = function (server, options, next) {
 
-    /**
+    /*
      * add the FileMaker Server Client to the request object
      * so we can use it in the handlers
      */
-    server.decorate('request', 'fms', client )
+    server.decorate('request', 'fms', client );
 
+
+
+    /*
+    Routes
+     */
     server.route([
         {
             method: 'Get',
@@ -37,8 +42,28 @@ module.exports.register = function (server, options, next) {
         {
             method : 'GET',
             path : '/{db}/{layout}',
-            handler : handlers.layout
-        }
+            handler : handlers.find
+        },
+        {
+            method : 'POST',
+            path : '/{db}/{layout}',
+            handler : handlers.new
+        },
+        {
+            method : 'GET',
+            path : '/{db}/{layout}/{id}',
+            handler : handlers.read
+        },
+        {
+            method : 'PUT',
+            path : '/{db}/{layout}/{id}',
+            handler : handlers.update
+        },
+        {
+            method : 'DELETE',
+            path : '/{db}/{layout}/{id}',
+            handler : handlers.delete
+        },
 
 
     ])
