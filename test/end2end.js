@@ -131,6 +131,30 @@ lab.experiment('GET /{db}/{layout}',{timeout:5000}, ()=>{
 
 });
 
+
+lab.experiment('POST /{db}/{layout}/',{timeout:2000}, ()=>{
+    let request = {
+        method :'POST',
+        url : '/ContactsTest/userTable',
+        headers : {
+            authorization : internals.basicAuthHeader('admin', '')
+        },
+        payload: {
+            first_name : 'ok'
+        }
+    };
+
+    lab.test('should return status code 200 and error "0" and first_name equal to "Jimmy"', (done) => {
+        server.inject(request, function(response ){
+            Code.expect(response.statusCode).to.equal(200);
+            let data = JSON.parse(response.payload);
+            Code.expect(data.error).to.equal('0');
+            Code.expect(data.data[0]['first_name']).to.equal('ok')
+            done()
+        })
+    });
+});
+
 lab.experiment('GET /{db}/{layout}/{id}',{timeout:50000}, ()=>{
     let request = {
         method :'get',
@@ -149,5 +173,4 @@ lab.experiment('GET /{db}/{layout}/{id}',{timeout:50000}, ()=>{
             done()
         })
     });
-
 });
