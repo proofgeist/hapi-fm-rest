@@ -8,7 +8,7 @@ A Hapi Plugin that creates a RESTFul proxy to a FileMaker Server.  You can use t
 
 ### Installation
 
-`npm install haps-fm-rest`
+`npm install hapi-fm-rest`
 
 This is a Hapi plugin. You use it like any other Hapi plugin. You register it with a Hapi server. It should play nicely with the Hapi ecosystem.  The plugin takes two options.
 
