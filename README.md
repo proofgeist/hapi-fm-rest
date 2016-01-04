@@ -1,4 +1,5 @@
-# fmsjsonapi
-RESTFul JSON API Server for FileMaker
+# hapi-fm-rest
 
-very early.  comeback later :-)
+A Hapi Plugin that adds RESTFul routes to a Hapi Server.
+
+Alpha stage
