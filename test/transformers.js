@@ -158,11 +158,10 @@ lab.experiment('New', ()=>{
     let requestMock = {
         params : {
             db: "Contact",
-            layout : "ContactWeb",
-            query : {
-                firstName : "Joe",
-                lastName : "Smith"
-            }
+            layout : "ContactWeb"
+        },payload : {
+            firstName : "Joe",
+            lastName : "Smith"
         }
     };
     requestMock = internals.authenticateMock(requestMock);
@@ -170,11 +169,11 @@ lab.experiment('New', ()=>{
     let result = transformers.new(requestMock);
 
     lab.test('should return an object with an "-new" property equal to ""', (done)=>{
-        Code.expect(result.qs['-new']).to.equal("");
+        Code.expect(result.form['-new']).to.equal("");
         done();
     });
     lab.test('should return an object with an "qs.firstName" property equal to "Joe"', (done)=>{
-        Code.expect(result.qs.firstName).to.equal("Joe");
+        Code.expect(result.form.firstName).to.equal("Joe");
         done();
     })
 });
@@ -184,11 +183,11 @@ lab.experiment('update', ()=>{
         params : {
             db: "Contact",
             layout : "ContactWeb",
-            id : '121212',
-            query : {
-                firstName : "Joe",
-                lastName : "Smith"
-            }
+            id : '121212'
+        },
+        payload : {
+            firstName : "Joe",
+            lastName : "Smith"
         }
     };
 
@@ -197,15 +196,15 @@ lab.experiment('update', ()=>{
     let result = transformers.patch(requestMock);
 
     lab.test('should return an object with an "-edit" property equal to ""', (done)=>{
-        Code.expect(result.qs['-edit']).to.equal("");
+        Code.expect(result.form['-edit']).to.equal("");
         done();
     })
     lab.test('should return an object with an "qs.firstName" property equal to "Joe"', (done)=>{
-        Code.expect(result.qs.firstName).to.equal("Joe");
+        Code.expect(result.form.firstName).to.equal("Joe");
         done();
     })
     lab.test('should return an object with an "-recid" property equal to "121212"', (done)=>{
-        Code.expect(result.qs['-recid']).to.equal("121212");
+        Code.expect(result.form['-recid']).to.equal("121212");
         done();
     })
 });
@@ -224,11 +223,11 @@ lab.experiment('delete', ()=>{
     let result = transformers.delete(requestMock);
 
     lab.test('should return an object with an "-delete" property equal to ""', (done)=>{
-        Code.expect(result.qs['-delete']).to.equal("");
+        Code.expect(result.form['-delete']).to.equal("");
         done();
     })
     lab.test('should return an object with an "-recid" property equal to "121212"', (done)=>{
-        Code.expect(result.qs['-recid']).to.equal("121212");
+        Code.expect(result.form['-recid']).to.equal("121212");
         done();
     })
 });
