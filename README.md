@@ -27,7 +27,7 @@ Here is a complete Hapi Server that mounts the REST API at '/' on port 3000.
 'use strict';
 
 const Hapi = require ('hapi');
-const fmrest = require('haps-fm-rest');
+const fmrest = require('hapi-fm-rest');
 
 const server = new Hapi.Server();
 server.connection({ port: 3000 });
