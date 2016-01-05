@@ -1,6 +1,6 @@
 {
   "name": "hapi-fm-rest",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.3",
   "description": "\"A RESTFul JSON Server for FileMaker 12-14. Can be used as a hapi plugin\"",
   "main": "plugin.js",
   "scripts": {
