@@ -7,6 +7,10 @@
     "test": "./node_modules/.bin/lab",
     "start": "node server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/geistinteractive/hapi-fm-rest.git"
+  },
   "keywords": [
     "hapi",
     "FileMaker",
