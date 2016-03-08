@@ -27,7 +27,7 @@ internals.resetDB = (cb) =>{
         strictSSL : false,
         auth : {
             username : 'admin',
-            password : ''
+            password : 'e7z(CDYd*4MBRi'
         }
 
     }, (err, response, data)=>{
@@ -78,7 +78,7 @@ lab.experiment('GET /dbnames',{timeout:5000}, ()=>{
         method :'get',
         url : '/dbnames?-max=1',
         headers : {
-            authorization : internals.basicAuthHeader('admin', '')
+            authorization : internals.basicAuthHeader('admin', 'e7z(CDYd*4MBRi')
         }
     };
 
@@ -91,7 +91,7 @@ lab.experiment('GET /{db}/layoutnames', ()=>{
         method :'get',
         url : '/ContactsTest/layoutnames',
         headers : {
-            authorization : internals.basicAuthHeader('admin', '')
+            authorization : internals.basicAuthHeader('admin', 'e7z(CDYd*4MBRi')
         }
     };
 
@@ -104,7 +104,7 @@ lab.experiment('GET /{db}/scriptnames', ()=>{
         method :'get',
         url : '/ContactsTest/scriptnames',
         headers : {
-            authorization : internals.basicAuthHeader('admin', '')
+            authorization : internals.basicAuthHeader('admin', 'e7z(CDYd*4MBRi')
         }
     };
 
@@ -120,7 +120,7 @@ lab.experiment('GET /{db}/{layout}',{timeout:5000}, ()=>{
         method :'get',
         url : '/ContactsTest/Contacts?-max=2',
         headers : {
-            authorization : internals.basicAuthHeader('admin', '')
+            authorization : internals.basicAuthHeader('admin', 'e7z(CDYd*4MBRi')
         }
     };
 
@@ -141,19 +141,19 @@ lab.experiment('POST /{db}/{layout}/',{timeout:2000}, ()=>{
         method :'POST',
         url : '/ContactsTest/userTable',
         headers : {
-            authorization : internals.basicAuthHeader('admin', '')
+            authorization : internals.basicAuthHeader('admin', 'e7z(CDYd*4MBRi')
         },
         payload: {
             first_name : 'ok'
         }
     };
 
-    lab.test('should return status code 200 and error "0" and first_name equal to "Jimmy"', (done) => {
+    lab.test('should return status code 201,error="0", and a location header', (done) => {
         server.inject(request, function(response ){
-            Code.expect(response.statusCode).to.equal(200);
+            Code.expect(response.statusCode).to.equal(201);
             let data = JSON.parse(response.payload);
             Code.expect(data.error).to.equal('0');
-           // Code.expect(data.data[0]['first_name']).to.equal('ok')
+            Code.expect(response.headers.location).to.be.a.string()
             done()
         })
     });
@@ -166,7 +166,7 @@ lab.experiment('PATCH /{db}/{layout}/{id}',{timeout:50000}, ()=>{
         method :'PATCH',
         url : '/ContactsTest/userTable/1',
         headers : {
-            authorization : internals.basicAuthHeader('admin', '')
+            authorization : internals.basicAuthHeader('admin', 'e7z(CDYd*4MBRi')
         },
         payload: {
             first_name : 'Steve'
@@ -189,7 +189,7 @@ lab.experiment('PUT /{db}/{layout}/{id}',{timeout:50000}, ()=>{
         method :'PUT',
         url : '/ContactsTest/userTable/1',
         headers : {
-            authorization : internals.basicAuthHeader('admin', '')
+            authorization : internals.basicAuthHeader('admin', 'e7z(CDYd*4MBRi')
         },
         payload: {
             first_name : 'Bill'
@@ -208,12 +208,12 @@ lab.experiment('PUT /{db}/{layout}/{id}',{timeout:50000}, ()=>{
 });
 
 
-lab.experiment('DELERE /{db}/{layout}/{id}',{timeout:50000}, ()=>{
+lab.experiment('DELETE /{db}/{layout}/{id}',{timeout:50000}, ()=>{
     let request = {
         method :'DELETE',
         url : '/ContactsTest/userTable/2',
         headers : {
-            authorization : internals.basicAuthHeader('admin', '')
+            authorization : internals.basicAuthHeader('admin', 'e7z(CDYd*4MBRi')
         }
     };
 
